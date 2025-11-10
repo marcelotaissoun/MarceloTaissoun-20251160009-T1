@@ -1,5 +1,4 @@
 #include<stdio.h>
-#include<string.h>
 
 #include "marcelotaissoun20251160009.h"
 
@@ -22,39 +21,31 @@ int dias_no_mes(int mes, int ano) {
     return 0;
 }
 
-int ano_bissexto(int ano) {
-    if (ano % 400 == 0) return 1;
-    if (ano % 100 == 0) return 0;
-    if (ano % 4 == 0) return 1;
-    return 0;
+int validar(int diaa, int mess, int anoo) {
+    if (anoo < 1) return 0;
+    if (mess < 1 || mess > 12) return 0;
+    if (diaa < 1 || diaa > dias_no_mes(mess, anoo)) return 0;
+    return 1;
 }
 
-int dias_no_mes(int mes, int ano) {
-    switch (mes) {
-        case 1: case 3: case 5: case 7: case 8: case 10: case 12:
-            return 31;
-        case 4: case 6: case 9: case 11:
-            return 30;
-        case 2:
-            return ano_bissexto(ano) ? 29 : 28;
-    }
+void testQ1() {
+    printf("Testes da funcao validar:\n");
 
-void testQ1(){
-   printf("Testando ano_bissexto:\n");
+    printf("01) 10/10/2020: %s\n", validar(10,10,2020) ? "1" : "0");
+    printf("02) 29/02/2020 (bissexto): %s\n", validar(29,2,2020) ? "1" : "0");
+    printf("03) 31/12/1999: %s\n", validar(31,12,1999) ? "1" : "0");
 
-    printf("1) 2000 (bissexto): %s\n", ano_bissexto(2000) ? "1" : "0");
-    printf("2) 1900 (nao bissexto): %s\n", !ano_bissexto(1900) ? "1" : "0");
-    printf("3) 2020 (bissexto): %s\n", ano_bissexto(2020) ? "1" : "0");
-    printf("4) 2021 (nao bissexto): %s\n", !ano_bissexto(2021) ? "1" : "0");
+    printf("04) 31/02/2021: %s\n", !validar(31,2,2021) ? "1" : "0");
+    printf("05) 29/02/2021 (nao bissexto): %s\n", !validar(29,2,2021) ? "1" : "0");
+    printf("06) mes 13: %s\n", !validar(10,13,2020) ? "1" : "0");
+    printf("07) dia 0: %s\n", !validar(0,5,2020) ? "1" : "0");
+    printf("08) ano 0: %s\n", !validar(10,10,0) ? "1" : "0");
+    printf("09) dia maior que o mes permite: %s\n", !validar(31,4,2020) ? "1" : "0");
 
-    printf("\nTestando dias_no_mes:\n");
+    printf("Fim dos testes.\n\n");
+}
 
-    printf("5) Janeiro 2023 = 31: %s\n", dias_no_mes(1,2023) == 31 ? "1" : "0");
-    printf("6) Fevereiro 2020 (bissexto) = 29: %s\n", dias_no_mes(2,2020) == 29 ? "1" : "0");
-    printf("7) Fevereiro 2021 (normal) = 28: %s\n", dias_no_mes(2,2021) == 28 ? "1" : "0");
-    printf("8) Abril 2022 = 30: %s\n", dias_no_mes(4,2022) == 30 ? "1" : "0");
-    printf("9) Mes invalido = 0: %s\n", dias_no_mes(15,2022) == 0 ? "1" : "0");
-
-    printf("\nFim dos testes.\n");
+int main() {
+    testQ1();
     return 0;
 }
