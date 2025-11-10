@@ -1,7 +1,5 @@
 #include<stdio.h>
 
-#include "marcelotaissoun20251160009.h"
-
 char normalizar(char c) {
     if (c >= 'A' && c <= 'Z')
         c = c + 32;
