@@ -52,13 +52,15 @@ void jogoDaVelha() {
         printf("Jogador %c, informe sua jogada (ex: A1, B3): ", jogador);
         scanf(" %c%d", &linha, &coluna);
 
-        int i = toupper(linha) - 'A';
+        linha = toupper(linha);
+        int i = linha - 'A';
         int j = coluna - 1;
 
         if (i < 0 || i >= TAM || j < 0 || j >= TAM) {
             printf("Posição inválida!\n");
             continue;
         }
+
         if (tab[i][j] != ' ') {
             printf("Essa posição já está ocupada!\n");
             continue;
@@ -66,7 +68,9 @@ void jogoDaVelha() {
 
         tab[i][j] = jogador;
         jogadas++;
+
         vencedor = ganhador(tab);
+
         jogador = (jogador == 'X') ? 'O' : 'X';
     }
 
@@ -82,4 +86,3 @@ int main() {
     jogoDaVelha();
     return 0;
 }
-
